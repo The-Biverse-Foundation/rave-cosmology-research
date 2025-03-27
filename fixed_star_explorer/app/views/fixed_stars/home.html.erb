@@ -1,0 +1,37 @@
+<h1>Fixed Star Explorer</h1>
+
+<%= form_with url: root_path, method: :get, local: true do |f| %>
+  <%= f.label :date, "Select a Date" %>
+  <%= f.date_field :date, value: @date %>
+  <%= f.submit "Submit" %>
+<% end %>
+
+<h2>Stars</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <!-- DMS stands for Degrees, Minutes, and Seconds, which is a way of representing the position of a star in the sky
+           using the traditional notation. -->
+      <th>DMS</th>
+
+      <th>Gate and Line</th>
+
+      <!-- G2B stands for Gate-to-Base Notation, which is a way of representing the position of a star in the sky
+           using the Human Design Rave Mandala positioning. The notation uses dot-separated (".") numbers signifying
+           Gate, Line, Color, Tone, and Base, respectively. -->
+      <th>G2B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @fixed_stars.each do |star| %>
+      <tr>
+        <td><%= link_to star['name'], fixed_star_path(star['string_id'], date: @date) %></td>
+        <td><%= star['dms'] %></td>
+        <td><%= dms_to_gate_and_line(star['dms']) %></td> 
+        <td><%= dms_to_g2b(star['dms']) %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
