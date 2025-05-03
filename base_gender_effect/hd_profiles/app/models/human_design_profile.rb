@@ -1,0 +1,2 @@
+class HumanDesignProfile < ApplicationRecord
+end
